@@ -23,14 +23,9 @@ FROM nginx:alpine
 # Copy built files from build stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy nginx configuration
+# Copy nginx configuration template
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Default PORT if not provided
-ENV PORT=80
-
-# Expose ports
-EXPOSE 80 8080
-
-# Start nginx with sed replacing only ${PORT} so $uri is preserved
-CMD ["/bin/sh", "-c", "sed -i \"s/\\${PORT}/${PORT:-80}/g\" /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+# Start nginx, replacing RAILWAY_PORT placeholder with $PORT from Railway
+# Using a plain text placeholder avoids conflicts with nginx's own $uri/$host variables
+CMD ["/bin/sh", "-c", "sed -i \"s/RAILWAY_PORT/${PORT:-80}/g\" /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
