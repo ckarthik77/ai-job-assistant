@@ -21,9 +21,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     /**
      * Find projects that contain any of the specified skills
-     * Uses JSONB array overlap operator
+     * Uses PostgreSQL jsonb_exists_any function
      */
-    @Query(value = "SELECT * FROM projects WHERE skills ?| CAST(:skills AS text[])", nativeQuery = true)
+    @Query(value = "SELECT * FROM projects WHERE jsonb_exists_any(skills, CAST(:skills AS text[]))", nativeQuery = true)
     List<Project> findBySkillsIn(@Param("skills") String[] skills);
 
     /**
