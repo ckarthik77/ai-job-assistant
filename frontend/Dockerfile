@@ -23,14 +23,14 @@ FROM nginx:alpine
 # Copy built files from build stage
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy nginx template configuration (official nginx image automatically substitutes $PORT)
-COPY nginx.conf /etc/nginx/templates/default.conf.template
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Default PORT if not provided
 ENV PORT=80
 
-# Expose port
-EXPOSE 80
+# Expose ports
+EXPOSE 80 8080
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start nginx with sed replacing only ${PORT} so $uri is preserved
+CMD ["/bin/sh", "-c", "sed -i \"s/\\${PORT}/${PORT:-80}/g\" /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
