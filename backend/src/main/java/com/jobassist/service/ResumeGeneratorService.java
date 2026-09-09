@@ -9,7 +9,6 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -33,9 +32,9 @@ public class ResumeGeneratorService {
     private static final float USABLE_WIDTH = PAGE_WIDTH - (2 * MARGIN);
 
     // Font settings
-    private static final PDFont FONT_BOLD = new PDType1Font(Standard14Fonts.FontName.HELVETICA_BOLD);
-    private static final PDFont FONT_REGULAR = new PDType1Font(Standard14Fonts.FontName.HELVETICA);
-    private static final PDFont FONT_ITALIC = new PDType1Font(Standard14Fonts.FontName.HELVETICA_OBLIQUE);
+    private static final PDFont FONT_BOLD = PDType1Font.HELVETICA_BOLD;
+    private static final PDFont FONT_REGULAR = PDType1Font.HELVETICA;
+    private static final PDFont FONT_ITALIC = PDType1Font.HELVETICA_OBLIQUE;
 
     private static final float FONT_SIZE_NAME = 18;
     private static final float FONT_SIZE_SECTION = 12;
