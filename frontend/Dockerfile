@@ -20,9 +20,9 @@ FROM nginx:alpine
 # Copy built files
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Copy startup script
+# Copy startup script and fix Windows CRLF line endings
 COPY start.sh /start.sh
-RUN chmod +x /start.sh
+RUN sed -i 's/\r$//' /start.sh && chmod +x /start.sh
 
 # Remove default nginx config
 RUN rm -f /etc/nginx/conf.d/default.conf
