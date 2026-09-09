@@ -56,7 +56,7 @@ public class DocumentParserService {
             "React Native", "Flutter", "iOS", "Android", "Xamarin",
 
             // Other
-            "Agile", "Scrum", "CI/CD", "TDD", "Microservices", "API", "Linux", "Unix",
+            "Agile", "Scrum", "CI/CD", "TDD", "API", "Linux", "Unix",
             "Bash", "PowerShell", "Nginx", "Apache", "Tomcat"
     );
 
